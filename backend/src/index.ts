@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
 
@@ -22,6 +23,7 @@ mongoose.connect(mongoConnectionString)
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: 'http://localhost:5173', // replace with your frontend domain
