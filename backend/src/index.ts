@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: 'http://localhost:5173', // replace with your frontend domain
+    origin: process.env.FRONTEND_URL, // replace with your frontend domain
     credentials: true // if you need to include cookies in requests
 }));
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
