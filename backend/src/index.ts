@@ -34,7 +34,6 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/users",userRoutes)
 app.use("/api/auth", authRoutes);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.listen(7000, () => {
+  console.log("server running on localhost:7000");
 });
