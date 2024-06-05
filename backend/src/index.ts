@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
+import path from 'path';
 
 const mongoConnectionString = process.env.MONGODB_CONNECTION_STRING;
 
@@ -29,6 +30,7 @@ app.use(cors({
     origin: 'http://localhost:5173', // replace with your frontend domain
     credentials: true // if you need to include cookies in requests
 }));
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/users",userRoutes)
 app.use("/api/auth", authRoutes);
 
