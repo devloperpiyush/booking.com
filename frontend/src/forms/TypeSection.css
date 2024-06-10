@@ -1,0 +1,16 @@
+/* TypeSection.css */
+.type-label {
+    background-color: #ccc;
+    color: #444;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .type-label.selected {
+    background-color: #3f72af;
+    color: #fff;
+  }
+  
+  .type-label:hover {
+    transform: scale(1.1); /* Increase scale on hover for 3D effect */
+  }
+  

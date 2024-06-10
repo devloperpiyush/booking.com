@@ -5,7 +5,15 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
+import hotelRoutes from './routes/hotels'
 import path from 'path';
+import {v2 as cloudinary} from 'cloudinary'
+
+cloudinary.config({
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret:process.env.CLOUDINARY_API_SECERET
+})
 
 const mongoConnectionString = process.env.MONGODB_CONNECTION_STRING;
 
@@ -19,7 +27,7 @@ mongoose.connect(mongoConnectionString)
     })
     .catch((error) => {
         console.error('Error connecting to MongoDB', error);
-        process.exit(1); // Exit the process with failure code
+        process.exit(1);
     });
 
 const app = express();
@@ -27,12 +35,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: 'http://localhost:5173', // replace with your frontend domain
-    credentials: true // if you need to include cookies in requests
+    origin: 'http://localhost:5173',
+    credentials: true 
 }));
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
 app.use("/api/users",userRoutes)
 app.use("/api/auth", authRoutes);
+app.use("/api/hotels", hotelRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

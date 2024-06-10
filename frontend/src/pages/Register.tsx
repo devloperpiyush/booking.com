@@ -12,9 +12,8 @@ export type RegisterFormData = {
   confirmPassword: string;
 };
 
-const Regsiter = () => {
-
-  const { showToast } = useAppContext()
+const Register = () => {
+  const { showToast } = useAppContext();
   const navigate = useNavigate();
 
   const {
@@ -27,7 +26,7 @@ const Regsiter = () => {
   const mutation = useMutation(apiClient.register, {
     onSuccess: () => {
       showToast({ message: "Registration successful", type: "SUCCESS" });
-      navigate("/");  
+      navigate("/");
     },
     onError: (error: Error) => {
       showToast({ message: error.message, type: "ERROR" });
@@ -39,46 +38,46 @@ const Regsiter = () => {
   });
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Create an Account</h2>
-      <div className="flex flex-col md:flex-row gap-5">
-        <label className="text-gray-700 text-sm font-bold flex-1">
+    <form className="max-w-lg mx-auto my-10 p-8 bg-white shadow-md rounded-lg" onSubmit={onSubmit}>
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create an Account</h2>
+      <div className="flex flex-col md:flex-row gap-4">
+        <label className="text-gray-700 text-sm font-medium flex-1">
           First Name
           <input
-            className="border rounded w-full py-1 px-2 font-normal"
+            className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             {...register("firstName", { required: "This field is required" })}
-          ></input>
+          />
           {errors.firstName && (
-            <span className="text-red-500">{errors.firstName.message}</span>
+            <span className="text-red-500 text-xs mt-1">{errors.firstName.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-gray-700 text-sm font-medium flex-1">
           Last Name
           <input
-            className="border rounded w-full py-1 px-2 font-normal"
+            className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             {...register("lastName", { required: "This field is required" })}
-          ></input>
+          />
           {errors.lastName && (
-            <span className="text-red-500">{errors.lastName.message}</span>
+            <span className="text-red-500 text-xs mt-1">{errors.lastName.message}</span>
           )}
         </label>
       </div>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-sm font-medium mt-4">
         Email
         <input
           type="email"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           {...register("email", { required: "This field is required" })}
-        ></input>
+        />
         {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
+          <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-sm font-medium mt-4">
         Password
         <input
           type="password"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -86,40 +85,40 @@ const Regsiter = () => {
               message: "Password must be at least 6 characters",
             },
           })}
-        ></input>
+        />
         {errors.password && (
-          <span className="text-red-500">{errors.password.message}</span>
+          <span className="text-red-500 text-xs mt-1">{errors.password.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-gray-700 text-sm font-medium mt-4">
         Confirm Password
         <input
           type="password"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border border-gray-300 rounded-lg w-full py-2 px-3 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
           {...register("confirmPassword", {
             validate: (val) => {
               if (!val) {
                 return "This field is required";
               } else if (watch("password") !== val) {
-                return "Your passwords do no match";
+                return "Your passwords do not match";
               }
             },
           })}
-        ></input>
+        />
         {errors.confirmPassword && (
-          <span className="text-red-500">{errors.confirmPassword.message}</span>
+          <span className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</span>
         )}
       </label>
-      <span>
+      <div className="flex justify-center mt-6">
         <button
           type="submit"
-          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
+          className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
         >
           Create Account
         </button>
-      </span>
+      </div>
     </form>
-  )
-}
+  );
+};
 
-export default Regsiter;
+export default Register;
